@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Maker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Sancreek&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/scene.css">
+    <link rel="stylesheet" href="./css/board.css">
+    <link rel="stylesheet" href="./css/maker.css">
+
+    <script type="module" src="./js/game-board.js" defer></script>
+</head>
+<body>
+
+    <game-scene>
+
+        <h1>Importer</h1>
+        <input style="width: 100%" type="text" placeholder="Importer une carte">
+        <button style="margin-bottom: 2rem;margin-top: 0.5rem;" onclick="importMap(this.previousElementSibling.value)">Importer</button>
+
+        <header>
+            <div>
+                <div style="display: flex">    
+                    <input type="number" placeholder="columns" style="margin-right: 0.4rem;">
+                    <button onclick="board.setSize(this.previousElementSibling.value)">OK</button>
+                </div>
+                <button onclick="delLine()">Supprimer une ligne</button>
+            </div>
+
+            <div>
+                <button onclick="addTile(0)">Ajouter une tuile</button>
+                <button onclick="addLine()">Ajouter une ligne</button>
+            </div>
+        </header>
+
+        <game-board style="--num-cols: 19">
+
+        </game-board>
+
+        <h1>Mode d'édition</h1>
+
+        <div class="mode">
+            <button class="setter selected" data-mode="0">Mur</button>
+            <button class="setter" data-mode="1">Sol vide</button>
+            <button class="setter" data-mode="2">Friandise</button>
+            <button class="setter" data-mode="3">Spawn Fantôme</button>
+            <button class="setter" data-mode="9">Hors carte</button>
+        </div>
+
+        <h1 style="margin-top: 2rem;">Sauvegarde</h1>
+        <button onclick="copyMap()">Copier le tableau de la carte</button>
+
+    </game-scene>
+
+    <script>
+
+        // supprimer une ligne, importer une carte
+
+        const board = document.querySelector('game-board');
+        let editMode = 0;
+        let moveEdit = false;
+
+        function createTile(num = 0){
+            let tile = board.createTile(num);
+            editListener(tile);
+            return tile;
+        }
+
+        function addTile(num){
+            let tile = createTile(num);
+            board.wrapper.appendChild(tile);
+        }
+
+        function delLine(){
+            let size = board.getSize();
+            let tiles = board.querySelectorAll(`.board-tile`);
+            if(!tiles.length){ return; }
+            
+            let cut = board.querySelectorAll(`.board-tile:nth-child(n+${tiles.length - size + 1})`);
+            cut.forEach(element => element.remove());
+        }
+
+        function addLine(){
+            let size = board.getSize();
+            while(size--){addTile()}
+        }
+
+        function tileHandler(event){
+            if(event.type === 'mouseenter' && !moveEdit){ return; }
+            if(Number(event.currentTarget.dataset.type) === editMode){ return; }
+
+            let newTile = createTile(editMode);
+            event.currentTarget.replaceWith(newTile);
+        }
+
+        function copyMap(){
+            let map = [];
+            let tiles = board.querySelectorAll('.board-tile');
+            let size = board.getSize();
+
+            let line = [];
+
+            for(let x=0, i=0; x<tiles.length; x++, i++){
+                
+                if(i >= size){
+                    i = 0;
+                    map.push(line);
+                    line = [];
+                }
+
+                let number = Number(tiles[x].dataset.type);
+                line.push(number);
+
+            }
+
+            map.push(line)
+            navigator.clipboard.writeText(JSON.stringify(map));
+        }
+
+        function importMap(str){
+            let array = JSON.parse(str);
+            board.build(array);
+            let tiles = board.querySelectorAll('.board-tile');
+            tiles.forEach(tile => {
+                editListener(tile);
+            })
+        }
+
+        function editListener(element){
+            element.addEventListener('mousedown', tileHandler);
+            element.addEventListener('mouseenter', tileHandler);
+        }
+
+        const modes = document.querySelectorAll('.mode .setter');
+
+        modes.forEach(setter =>{
+            setter.addEventListener('click', ()=>{
+                modes.forEach(setter => { setter.classList.remove('selected'); });
+                setter.classList.add('selected');
+                editMode = Number(setter.dataset.mode);
+            });
+        });
+
+        board.addEventListener('mousedown', e => {moveEdit = true;});
+        document.addEventListener('mouseup', e => {moveEdit = false;});
+
+    </script>
+    
+</body>
+</html>

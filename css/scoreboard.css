@@ -1,0 +1,15 @@
+game-scene game-scoreboard{
+    width: max-content;
+    flex: none;
+    margin-bottom: 1rem;
+
+    text-align: center;
+    font-size: 2rem;
+    line-height: 1;
+    color: rgba(var(--color-brown));
+}
+
+    game-scene game-scoreboard .game-score{
+        font-size: 3rem;
+        color: rgba(var(--color-orange));
+    }

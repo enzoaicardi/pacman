@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours JS - Pacman</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Sancreek&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/scene.css">
+    <link rel="stylesheet" href="./css/board.css">
+    <link rel="stylesheet" href="./css/entity.css">
+    <link rel="stylesheet" href="./css/scoreboard.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/modal.css">
+
+    <script type="module" src="./js/game.js" defer></script>
+
+</head>
+<body>
+
+    <game-scene>
+
+        <h1>Pacman</h1>
+
+        <header>
+
+            <img src="./img/cactus.svg">
+            
+            <game-scoreboard>
+                <p>Score</p>
+                <p><span class="game-score"></span> / <span class="game-goal"></span></p>
+            </game-scoreboard>
+
+            <img src="./img/cactus.svg">
+
+        </header>
+
+        <game-board>
+
+            <!-- auto generate pacman and wrapper -->
+
+            <game-modal>
+
+                <div class="win lose">
+    
+                    <img class="lose" src="./img/prison.svg">
+                    <h2 class="title lose">GAME OVER</h2>
+                    <p class="text lose">Vous avez perdu</p>
+    
+                    <img class="win" src="./img/star.svg">
+                    <h2 class="title win">PACMAN</h2>
+                    <p class="text win">Vous avez gagné</p>
+    
+                </div>
+    
+                <div class="pause">
+    
+                    <img class="big" src="./img/clock.svg">
+                    <h2 class="title">PAUSE</h2>
+                    <p class="text">Danse pied tendre !</p>
+    
+                    <button class="button" onclick="game.play();">
+                        <p>Reprendre</p>
+                    </button>
+    
+                </div>
+
+            </game-modal>
+
+        </game-board>
+
+        <footer>
+
+            <div class="difficulty">
+                <img src="./img/pistol.svg">
+                <p class="setter" data-speed="400">Facile</p>
+                <p class="setter selected" data-speed="300">Normale</p>
+                <p class="setter" data-speed="200">Difficile</p>
+                <p class="setter" data-speed="100">Extreme</p>
+            </div>
+
+            <div class="maps">
+                <button class="button" onclick="game.start(0);">
+                    <p>Starter</p>
+                </button>
+                <button class="button" onclick="game.start(1);">
+                    <p>Classic</p>
+                </button>
+                <button class="button" onclick="game.start(2);">
+                    <p>Saloon</p>
+                </button>
+                <button class="button" onclick="game.start(3);">
+                    <p>Cactus</p>
+                </button>
+                <button class="button" onclick="game.start(4);">
+                    <p>Chapeau</p>
+                </button>
+                <button class="button" onclick="game.start(5);">
+                    <p>Charette</p>
+                </button>
+                <button class="button" onclick="game.start(6);">
+                    <p>Forterresse</p>
+                </button>
+                <button class="button" onclick="game.start(7);">
+                    <p>Tipi</p>
+                </button>
+                <button class="button" onclick="game.start(8);">
+                    <p>Football</p>
+                </button>
+            </div>
+
+            <div class="quantity">
+                <img class="lose" src="./img/ghost.svg">
+                <input type="text" value="4">
+                <button onclick="game.setGhosts(Number(this.previousElementSibling.value))">OK</button>
+            </div>
+            
+        </footer>
+
+    </game-scene>
+
+    <script>
+        const game = document.querySelector('game-scene');
+        const levels = game.querySelectorAll('.difficulty .setter');
+
+        levels.forEach(setter =>{
+
+            setter.addEventListener('click', ()=>{
+
+                levels.forEach(setter => {
+                    setter.classList.remove('selected');
+                });
+
+                setter.classList.add('selected');
+                game.speed = Number(setter.dataset.speed);
+
+            });
+
+        })
+    </script>
+
+
+</body>
+</html>

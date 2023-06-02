@@ -1,0 +1,44 @@
+
+game-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(var(--color-wall), 0.9);
+    z-index: 30;
+}
+
+game-modal[show]{
+    display: flex;
+}
+
+    game-modal *{
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    game-modal:not([show="lose"]) .lose{ display: none; }
+    game-modal:not([show="win"]) .win{ display: none; }
+    game-modal:not([show="pause"]) .pause{ display: none; }
+    game-modal[show="lose"] .lose{ display: flex; }
+    game-modal[show="win"] .win{ display: flex; }
+    game-modal[show="pause"] .pause{ display: flex; }
+
+    game-modal img{ width: 120px; margin-bottom: 0.4rem; }
+    game-modal img.big{ width: 200px; }
+    game-modal .text{ color: rgba(var(--color-orange)); margin-bottom: 2rem; }
+
+    game-modal .title{
+        font-family: var(--font-subwestern);
+        font-size: 2.4rem;
+        color: rgba(var(--color-brown));
+    }

@@ -1,0 +1,50 @@
+*{ box-sizing: border-box; margin: 0; padding: 0; font-weight: 400;}
+
+:root{
+    --cell-size: 30px;
+    --num-cols: 19;
+    
+    --font-western: 'Sancreek', serif;
+    --font-subwestern: 'Rye', serif;
+    --color-brown: 157, 71, 37;
+    --color-desert: 251, 241, 228;
+    --color-orange: 255, 150, 58;
+    --color-wall: 255, 228, 196;
+    --color-void: 240, 248, 255;
+    --color-pacman: indianred;
+    --color-ghost: indianred;
+
+    background-color: rgba(var(--color-desert));
+    font-family: var(--font-western);
+    padding: 3rem 0;
+}
+
+game-scene{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+}
+
+input,
+button{
+    width: 6rem;
+    padding: 0.5rem 1rem;
+
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: none;
+}
+
+input{
+    cursor: text;
+    padding-right: 0rem;
+}
+
+button{
+    display: block;
+    cursor: pointer;
+    width: max-content;
+    background-color: rgba(var(--color-orange));
+}

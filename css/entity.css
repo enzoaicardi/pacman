@@ -1,0 +1,90 @@
+game-entity.pacman{
+    position: absolute;
+    top: 0;
+
+    height: var(--cell-size);
+    width: var(--cell-size);
+    border-radius: 50%;
+    background-color: var(--color-pacman);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 50% 50%, 100% 100%, 100% 100%, 0 100%);
+    animation: pacman-eat 300ms ease infinite alternate;
+}
+
+    game-entity.pacman::before{
+        content: '';
+        display: block;
+        position: absolute;
+
+        width: 16%;
+        height: 16%;
+        left: 40%;
+        top: 13%;
+
+        border-radius: 50%;
+        background-color: black;
+    }
+
+game-entity.ghost{
+    position: absolute;
+    top: 0;
+
+    height: var(--cell-size);
+    width: var(--cell-size);
+    border-radius: 50% 50% 0 0;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, var(--color-ghost) 82%, transparent 82%), url(../img/ghost-bottom.svg);
+    background-size: 100% 100%, 40% 40%;
+    background-repeat:  no-repeat, repeat-x;
+    background-position: bottom left -30%;
+
+    animation: ghost-move 400ms linear infinite alternate;
+}
+
+    game-entity.ghost::before{
+        content: '';
+        display: block;
+        position: absolute;
+
+        width: 16%;
+        height: 16%;
+        left: 50%;
+        top: 16%;
+
+        background-color: black;
+        border-radius: 50%;
+    }
+
+    game-entity.ghost::after{
+        content: '';
+        display: block;
+        position: absolute;
+
+        width: 36%;
+        height: 36%;
+        left: 55%;
+        top: 42%;
+
+        background-image: url(../img/star.svg);
+        background-repeat: no-repeat;
+        border-radius: 50%;
+    }
+
+/* Animations */
+@keyframes pacman-eat{
+    0%{
+        clip-path: polygon(0 0, 100% 0, 100% 0, 50% 50%, 100% 100%, 100% 100%, 0 100%);
+    }
+    100%{
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 100% 50%, 100% 100%, 0 100%);
+    }
+}
+
+/* Animations */
+@keyframes ghost-move{
+    0%{
+        background-position: bottom left 0%;
+    }
+    100%{
+        background-position: bottom left 30%;
+    }
+}
