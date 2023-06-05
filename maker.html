@@ -94,7 +94,7 @@
         }
 
         function tileHandler(event){
-            if(event.type === 'mouseenter' && !moveEdit){ return; }
+            if(event.type === 'pointerenter' && !moveEdit){ return; }
             if(Number(event.currentTarget.dataset.type) === editMode){ return; }
 
             let newTile = createTile(editMode);
@@ -135,8 +135,8 @@
         }
 
         function editListener(element){
-            element.addEventListener('mousedown', tileHandler);
-            element.addEventListener('mouseenter', tileHandler);
+            element.addEventListener('pointerdown', tileHandler);
+            element.addEventListener('pointerenter', tileHandler);
         }
 
         const modes = document.querySelectorAll('.mode .setter');
@@ -149,8 +149,8 @@
             });
         });
 
-        board.addEventListener('mousedown', e => {moveEdit = true;});
-        document.addEventListener('mouseup', e => {moveEdit = false;});
+        board.addEventListener('pointerdown', e => {moveEdit = true;});
+        document.addEventListener('pointerup', e => {moveEdit = false;});
 
     </script>
     

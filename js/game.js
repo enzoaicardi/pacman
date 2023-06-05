@@ -1,6 +1,7 @@
 import "./game-modal.js";
 import "./game-board.js";
 import "./game-scoreboard.js";
+import "./game-controls.js";
 import GameEntity from "./game-entity.js";
 
 export default class Game extends HTMLElement{
@@ -16,6 +17,7 @@ export default class Game extends HTMLElement{
         this.scoreboard.onFinish = ()=>{this.end(true)};
 
         this.modal = this.querySelector('game-modal');
+        this.controls = document.querySelector('game-controls');
 
         this.pacman = new GameEntity('pacman').setBoard(this.board);
         this.board.appendChild(this.pacman);
@@ -24,6 +26,7 @@ export default class Game extends HTMLElement{
 
         this.loop = false;
         this.speed = 300;
+        this.controls.entity = this.pacman;
 
         // audios
         this.western_music = new Audio('./musics/music-western.mp3');
@@ -88,11 +91,20 @@ export default class Game extends HTMLElement{
             }, 
             this._speed
         );
-        this.western_music.play();
+        this.playMusic();
     }
 
     stopGameLoop(){
         clearTimeout(this.loop);
+        this.stopMusic();
+    }
+
+    playMusic(){
+        if(!this.western_music){return;}
+        this.western_music.play();
+    }
+    stopMusic(){
+        if(!this.western_music){return;}
         this.western_music.currentTime = 0;
         this.western_music.pause();
     }
