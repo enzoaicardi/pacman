@@ -25,6 +25,10 @@ export default class Game extends HTMLElement{
         this.loop = false;
         this.speed = 300;
 
+        // audios
+        this.western_music = new Audio('./musics/music-western.mp3');
+        this.western_music.volume = 0.2;
+
         // to not have an empty field at the start
         this.start(0);
     }
@@ -69,7 +73,7 @@ export default class Game extends HTMLElement{
 
     // private
 
-    startGameLoop(){
+    startGameLoop(){        
         this.loop = setTimeout(
             () => {
 
@@ -84,10 +88,13 @@ export default class Game extends HTMLElement{
             }, 
             this._speed
         );
+        this.western_music.play();
     }
 
     stopGameLoop(){
         clearTimeout(this.loop);
+        this.western_music.currentTime = 0;
+        this.western_music.pause();
     }
 
     keyHandler = (keyEvent)=>{
