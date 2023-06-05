@@ -1,6 +1,4 @@
-body{
-    touch-action: none;
-}
+
 
 header{
     width: 100%;
@@ -32,6 +30,7 @@ game-board .wrapper{
     margin-bottom: 4rem;
     min-height: 1rem;
     box-shadow: none;
+    touch-action: none;
 }
 
     game-board .board-tile:hover{
