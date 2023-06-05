@@ -9,6 +9,7 @@ game-board{
     game-board .wrapper{
         width: max-content;
         display: grid;
+        min-height: var(--cell-size);
         grid-template-columns: repeat(var(--num-cols), var(--cell-size));
         grid-auto-rows: var(--cell-size);
         box-shadow: 0 0 4rem 4rem rgba(var(--color-wall));

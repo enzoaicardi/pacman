@@ -26,7 +26,7 @@ game-sound.muted .muted{
     display: block;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 960px) {
 
     game-controls{
         position: fixed;

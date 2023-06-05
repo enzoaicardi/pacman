@@ -33,7 +33,7 @@ export default class Game extends HTMLElement{
         this.western_music.volume = 0.2;
 
         // to not have an empty field at the start
-        this.start(0);
+        // this.start(0);
     }
 
     start(arrayOrNumber){
