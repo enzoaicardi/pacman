@@ -149,7 +149,6 @@
             });
         });
 
-        document.addEventListener('gotpointercapture', e => {e.target.releasePointerCapture(e.pointerId)});
         board.addEventListener('pointerdown', e => {moveEdit = true;});
         document.addEventListener('pointerup', e => {moveEdit = false;});
 

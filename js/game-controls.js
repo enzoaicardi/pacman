@@ -14,7 +14,6 @@ export default class GameControls extends HTMLElement{
         for(const controller of this.directionControllers){
             controller.addEventListener('click', e => {
                 this.entity.direction = controller.dataset.direction;
-                console.log('clicked', controller.dataset.direction)
             });
         }
 

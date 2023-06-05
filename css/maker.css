@@ -1,3 +1,7 @@
+body{
+    touch-action: none;
+}
+
 header{
     width: 100%;
     display: flex;
